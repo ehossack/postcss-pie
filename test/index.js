@@ -39,7 +39,7 @@ var files = (function readOnlyCssFilesFrom(directory){
 
 			return 	fs.readdirSync(directory)
 					.filter(filename => { return /\.css$/.test(filename) // ends with css
-										 && !/-(?:out|real)\.css$/.test(filename); // contains output pattern
+										 && !/-out\.css$/.test(filename); // contains output pattern
 							})
 			})("./test/fixtures");
 

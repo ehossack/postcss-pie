@@ -1,12 +1,12 @@
 [postcss](https://github.com/postcss/postcss)-[pie](http://css3pie.com/)
-======
 
 # This is a forked version of [gucong3000](https://github.com/gucong3000)'s implementation
 
 Original Version [Here](https://github.com/gucong3000/postcss-pie)
 
-[![Build Status](https://travis-ci.org/gucong3000/postcss-pie.svg?branch=master)](https://travis-ci.org/gucong3000/postcss-pie)
 [![NPM version](https://img.shields.io/npm/v/postcss-pie.svg?style=flat-square)](https://www.npmjs.com/package/postcss-pie)
+[![Travis](https://img.shields.io/travis/gucong3000/postcss-pie.svg?&label=Linux)](https://travis-ci.org/gucong3000/postcss-pie)
+[![AppVeyor](https://img.shields.io/appveyor/ci/gucong3000/postcss-pie.svg?&label=Windows)](https://ci.appveyor.com/project/gucong3000/postcss-pie)
 [![Coverage Status](https://img.shields.io/coveralls/gucong3000/postcss-pie.svg)](https://coveralls.io/r/gucong3000/postcss-pie)
 
 Extending CSS3 features into earlier IE
