@@ -12,12 +12,14 @@ function performCssPIEProcessing(cssText, postcssOpts, cssPIEOptions) {
 			.process(cssText, postcssOpts).css;
 }
 function getCssPIEOptions(test) {
+	// regular behaviour application
 	if(test.indexOf('behavior') !== -1) {
 		return {
 			htcPath: "/PIE/build/PIE.htc",
 			pieLoadPath: "http://css3pie.com/pie",
 		};
 	}
+	// border-box enhancement
 	else if(test.indexOf('box') !== -1) {
 		return {
 			boxSizingPath: "/box-sizing/boxsizing.htc"

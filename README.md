@@ -43,7 +43,9 @@ Some enabled properties:
 
 If a background property is not a gradient, it does not need the behavior prefix in versions of IE less than IE9, 
 thus we supply `behavior: none\9\0;` directly afterwards. Amusingly, if the `:root` pseudo-selector is used, 
-once again the behaviour property is needed
+once again the behaviour property is needed.
+
+Please note due to this, the result is **invalid css**!!
 
 ### _From the original documentation_ - [Serving the correct Content-Type](http://css3pie.com/documentation/known-issues/#content-type)
 
@@ -59,10 +61,11 @@ once again the behaviour property is needed
 Invoking `css_pie` with an objections object will return a PostCSS plugin for the plugin chain.  
 See [PostCSS API](https://github.com/postcss/postcss/blob/master/docs/api.md) for plugin usage documentation.
 
-There are only two options
+There are three options
 
 *   `htcPath` (string): the path to the `PIE.htc` file. Subject to the same .htc restrictions, this file must be an absolute path from the server domain e.g. `/root/path/to/htc/resources/PIE.htc`. If you're unable to do this, consider the JavaScript loading behaviour of [pie-js](http://css3pie.com/documentation/pie-js/).
 *   `pieLoadPath` (string): this path is only relevant if using JavaScript for `PIE_IE9.js` and `PIE_IE678.js`, and will be the absolute URL path to their parent folder. If not supplied, the path will default to the `htcPath`. If neither are supplied, this option is disabled.
+*   `boxSizingPath` (string): this is an expansion to the original work, that adds an invalid prefix `*behavior` to any `box-sizing: border-box;` property, for the use case in [Schepp's box-sizing polyfill](https://github.com/Schepp/box-sizing-polyfill)
 
 ## [PIE documentation](http://css3pie.com/documentation/)
 
