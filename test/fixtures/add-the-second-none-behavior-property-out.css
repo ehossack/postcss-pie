@@ -1,0 +1,16 @@
+html {
+	-pie-load-path: "http://css3pie.com/pie";
+}
+
+.box-shadow {
+	behavior: url("/PIE/build/PIE.htc");
+	behavior: none\9\0;
+	background: #fff;
+	box-shadow: #ccc 0 0 .25em;
+}
+
+:root *> .box-shadow {
+	behavior: url("/PIE/build/PIE.htc");
+	background: #fff;
+	box-shadow: #ccc 0 0 .25em;	
+}

@@ -3,60 +3,85 @@
 var fs = require("fs");
 var assert = require("assert");
 
-function process(css, postcssOpts, opts) {
-	var postcss = require("postcss");
-	var processors = [
-		require("..")(opts),
-	];
-	return postcss(processors).process(css, postcssOpts).css;
+var postcss = require("postcss");
+var postcss_pie = require("..");
+
+// Helper function to perform processing on text
+function performCssPIEProcessing(cssText, postcssOpts, cssPIEOptions) {
+	return postcss([ postcss_pie(cssPIEOptions) ])
+			.process(cssText, postcssOpts).css;
+}
+function getCssPIEOptions(test) {
+	if(test.indexOf('behavior') !== -1) {
+		return {
+			htcPath: "/PIE/build/PIE.htc",
+			pieLoadPath: "http://css3pie.com/pie",
+		};
+	}
+	else if(test.indexOf('box') !== -1) {
+		return {
+			boxSizingPath: "/box-sizing/boxsizing.htc"
+		};
+	}
+	return undefined;
 }
 
-process(".test-opts{}", undefined, {
+// Perform an initial process just to ensure that the processing is working
+performCssPIEProcessing(".test-opts{}", undefined, {
 	htcPath: "PIE.htc",
 	pieLoadPath: "https://github.com/pie",
 });
 
-var files = fs.readdirSync("./test/fixtures");
 
-files = files.filter(function(filename) {
-	return /\.css$/.test(filename) && !/-(?:out|real)\.css$/.test(filename);
-});
-describe("fixtures", function() {
+var files = (function readOnlyCssFilesFrom(directory){ 
 
-	var allRight = true;
+			return 	fs.readdirSync(directory)
+					.filter(filename => { return /\.css$/.test(filename) // ends with css
+										 && !/-(?:out|real)\.css$/.test(filename); // contains output pattern
+							})
+			})("./test/fixtures");
 
-	files.forEach(function(filename) {
+describe("postcss-pie", function() {
 
-		var testName = filename.replace(/\.\w+$/, "");
-		var inputFile = "./test/fixtures/" + filename;
-		var input = fs.readFileSync(inputFile).toString();
-		var output = "";
-		try {
-			output = fs.readFileSync("./test/fixtures/" + testName + "-out.css").toString();
+	var noFailingTests = true;
+
+	files.forEach(filename => {
+
+		// name the files according to the test
+		var testName = filename.replace(/\.\w+$/, ""),
+			pathToFile = "./test/fixtures/" + filename;
+
+		var inputCSS = fs.readFileSync(pathToFile).toString(),
+			expectedOutput = "";
+
+		try { // read text
+			expectedOutput = fs.readFileSync("./test/fixtures/" + testName + "-out.css").toString();
 		} catch (ex) {
-
-		}
-		var real = process(input, {
-			form: inputFile
-		}, testName === "add-behavior" ? {
-			htcPath: "/PIE/build/PIE.htc",
-			pieLoadPath: "http://css3pie.com/pie",
-		} : undefined);
-
-		if (allRight) {
-			it(testName, function() {
-				assert.equal(real, output);
-			});
+			console.error(ex);
 		}
 
-		if (input === real) {
-			console.error(inputFile);
+		var postProcessedText = performCssPIEProcessing(inputCSS,
+														{ form: pathToFile },
+														getCssPIEOptions(testName)
+													);
+
+		// only perform assertion if no previous failures
+		if (noFailingTests) {
+
+			it("should be able to " + testName.replace(/-/g, " "),
+				() => { assert.equal(expectedOutput, postProcessedText) });
+
+			if(expectedOutput === inputCSS) { // show failure info if processing fails to happen
+				it("should post-process " + pathToFile,
+					() => { assert.notEqual(expectedOutput, inputCSS); });
+			}
 		}
 
-		if (real !== output) {
-			allRight = false;
+		if (postProcessedText !== expectedOutput) {
+			noFailingTests = false;
+
+			// uncomment to suggest output
 			// fs.writeFileSync("./test/fixtures/" + testName + "-out.css", real);
-			return false;
 		}
 	});
 });

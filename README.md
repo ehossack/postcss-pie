@@ -39,6 +39,12 @@ Some enabled properties:
     ]);
     ```
 
+### _Edge Case_
+
+If a background property is not a gradient, it does not need the behavior prefix in versions of IE less than IE9, 
+thus we supply `behavior: none\9\0;` directly afterwards. Amusingly, if the `:root` pseudo-selector is used, 
+once again the behaviour property is needed
+
 ### _From the original documentation_ - [Serving the correct Content-Type](http://css3pie.com/documentation/known-issues/#content-type)
 
 > IE requires that HTC behaviours are served up with a content-type header of "text/x-component", otherwise it will simply ignore the behavior. Many web servers are preconfigured to serve the correct content-type, but others are not.
@@ -59,3 +65,11 @@ There are only two options
 *   `pieLoadPath` (string): this path is only relevant if using JavaScript for `PIE_IE9.js` and `PIE_IE678.js`, and will be the absolute URL path to their parent folder. If not supplied, the path will default to the `htcPath`. If neither are supplied, this option is disabled.
 
 ## [PIE documentation](http://css3pie.com/documentation/)
+
+### Development
+
+Install the required packages via `npm install`, and ensure you have `npm install --global mocha`;
+
+**Running Tests**  
+simply run `mocha` from the root directory.  
+The tests will read in the fixture files and verify the correctness of output.

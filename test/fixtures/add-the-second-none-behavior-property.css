@@ -1,0 +1,9 @@
+.box-shadow {
+	background: #fff;
+	box-shadow: #ccc 0 0 .25em;
+}
+
+:root *> .box-shadow {
+	background: #fff;
+	box-shadow: #ccc 0 0 .25em;	
+}
