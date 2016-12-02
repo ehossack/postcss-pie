@@ -74,5 +74,5 @@ There are three options
 Install the required packages via `npm install`, and ensure you have `npm install --global mocha`;
 
 **Running Tests**  
-simply run `mocha` from the root directory.  
-The tests will read in the fixture files and verify the correctness of output.
+simply run `npm test` from the root directory.  
+The first step is linting, then the tests will read in the fixture files and verify the correctness of output.
