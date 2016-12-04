@@ -2,7 +2,13 @@
 
 # This is a forked version of [gucong3000](https://github.com/gucong3000)'s implementation
 
-Original Version [Here](https://github.com/gucong3000/postcss-pie)
+Original Version [Here](https://github.com/gucong3000/postcss-pie)  
+*Differences*:
+
+* Translation of comments/readme formatting of code for readability
+* allow boxsizing .htc plugin to be used as an option
+
+<br/>
 
 [![NPM version](https://img.shields.io/npm/v/postcss-pie.svg?style=flat-square)](https://www.npmjs.com/package/postcss-pie)
 [![Travis](https://img.shields.io/travis/gucong3000/postcss-pie.svg?&label=Linux)](https://travis-ci.org/gucong3000/postcss-pie)
