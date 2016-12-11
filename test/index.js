@@ -57,7 +57,7 @@ describe("postcss-pie", function() {
 			expectedOutput = "";
 
 		try { // read text
-			expectedOutput = fs.readFileSync("./test/fixtures/" + testName + "-out.css").toString();
+			expectedOutput = fs.readFileSync("./test/fixtures/out/" + testName + "-out.css").toString();
 		} catch (ex) {
 			console.error(ex);
 		}
